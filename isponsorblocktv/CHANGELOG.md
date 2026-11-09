@@ -2,6 +2,14 @@
 
 # Changelog
 
+## 2.11.0-1
+
+- Keep upstream v2.11.0 unchanged and verify its source commit during the build.
+- Remove host networking and the unused shared-directory mount.
+- Use Docker's standard AppArmor profile instead of the copied placeholder profile.
+- Build the wrapper on the HA machine from this repository.
+- Keep skip reporting disabled by default and remove the unused tempio download.
+
 ## 2.11.0
 
 **Addon Changes:**

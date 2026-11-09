@@ -9,7 +9,8 @@ RUN apk add --no-cache uv git gcc musl-dev
 
 WORKDIR /app
 RUN git clone --branch ${ISPONSORBLOCKTV_VERSION} --depth 1 \
-    https://github.com/dmunozv04/iSponsorBlockTV .
+    https://github.com/dmunozv04/iSponsorBlockTV . \
+    && test "$(git rev-parse HEAD)" = "005d248d20dd529bd3e8dca4d17a65ab05135ce8"
 
 # uv sync reads pyproject.toml, creates .venv, installs all dependencies
 RUN uv sync --no-dev --no-editable --index-strategy unsafe-best-match
@@ -19,10 +20,6 @@ RUN uv run python -m compileall -b -f src \
     && find src -name "*.py" -type f -delete
 
 FROM $BUILD_FROM
-ARG TEMPIO_VERSION BUILD_ARCH
-
-RUN curl -sSLf -o /usr/bin/tempio \
-    "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}"
 
 ENV iSPBTV_docker=True \
     iSPBTV_data_dir=data \
